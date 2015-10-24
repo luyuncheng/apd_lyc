@@ -94,7 +94,7 @@ int hostapd_notif_assoc(struct hostapd_data *hapd, const u8 *addr,
 			return -1;
 	}
 	sta->flags &= ~(WLAN_STA_WPS | WLAN_STA_MAYBE_WPS);
-
+    printf("lyc_drv_callbacks.c,sta_mac： "MACSTR" \n",MAC2STR((sta->addr)));
 #ifdef CONFIG_P2P
 	if (elems.p2p) {
 		wpabuf_free(sta->p2p_ie);

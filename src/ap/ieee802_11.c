@@ -1504,6 +1504,7 @@ static void handle_action(struct hostapd_data *hapd,
 void ieee802_11_mgmt(struct hostapd_data *hapd, const u8 *buf, size_t len,
 		     struct hostapd_frame_info *fi)
 {
+    printf("lyc_ieee802_11.c_ieee802_11_mgmt\n");
 	struct ieee80211_mgmt *mgmt;
 	int broadcast;
 	u16 fc, stype;

@@ -7,4 +7,4 @@
  ../src/common/ieee802_11_defs.h ../src/drivers/netlink.h \
  ../src/drivers/linux_ioctl.h ../src/ap/hostapd.h ../src/ap/ap_config.h \
  ../src/utils/ip_addr.h ../src/common/wpa_common.h ../src/wps/wps.h \
- ../src/wps/wps_defs.h ../src/drivers/driver_rtl.h
+ ../src/wps/wps_defs.h ../src/ap/sta_info.h ../src/drivers/driver_rtl.h

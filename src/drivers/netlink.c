@@ -25,12 +25,13 @@ struct netlink_data {
 	int sock;
 };
 
-
+//这里根据传入的nlmsghdr 传入到rtl驱动的newlink里面
 static void netlink_receive_link(struct netlink_data *netlink,
 				 void (*cb)(void *ctx, struct ifinfomsg *ifi,
 					    u8 *buf, size_t len),
 				 struct nlmsghdr *h)
 {
+    //nlmghdr为netlink与内核通信的copy，里面传过来的信息
 	if (cb == NULL || NLMSG_PAYLOAD(h, 0) < sizeof(struct ifinfomsg))
 		return;
 	cb(netlink->cfg->ctx, NLMSG_DATA(h),
@@ -38,7 +39,7 @@ static void netlink_receive_link(struct netlink_data *netlink,
 	   NLMSG_PAYLOAD(h, sizeof(struct ifinfomsg)));
 }
 
-
+//初始化的时候将这个回调函数注册到了eloop
 static void netlink_receive(int sock, void *eloop_ctx, void *sock_ctx)
 {
 	struct netlink_data *netlink = eloop_ctx;

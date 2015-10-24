@@ -43,6 +43,7 @@ u32 hostapd_sta_flags_to_drv(u32 flags)
 
 int hostapd_set_ap_wps_ie(struct hostapd_data *hapd)
 {
+    printf("lyc_ap_drv_ops.c_hostapd_set_ap_wps_ie\n");
 	struct wpabuf *beacon, *proberesp, *assocresp = NULL;
 	int ret;
 
@@ -160,6 +161,8 @@ int hostapd_set_ap_wps_ie(struct hostapd_data *hapd)
 int hostapd_set_authorized(struct hostapd_data *hapd,
 			   struct sta_info *sta, int authorized)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_authorized\n");
 	if (authorized) {
 		return hostapd_sta_set_flags(hapd, sta->addr,
 					     hostapd_sta_flags_to_drv(
@@ -175,6 +178,8 @@ int hostapd_set_authorized(struct hostapd_data *hapd,
 
 int hostapd_set_sta_flags(struct hostapd_data *hapd, struct sta_info *sta)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_sta_flags\n");
 	int set_flags, total_flags, flags_and, flags_or;
 	total_flags = hostapd_sta_flags_to_drv(sta->flags);
 	set_flags = WPA_STA_SHORT_PREAMBLE | WPA_STA_WMM | WPA_STA_MFP;
@@ -193,6 +198,8 @@ int hostapd_set_drv_ieee8021x(struct hostapd_data *hapd, const char *ifname,
 			      int enabled)
 {
 	struct wpa_bss_params params;
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_drv_ieee8021x\n");
 	os_memset(&params, 0, sizeof(params));
 	params.ifname = ifname;
 	params.enabled = enabled;
@@ -213,6 +220,8 @@ int hostapd_set_drv_ieee8021x(struct hostapd_data *hapd, const char *ifname,
 
 static int hostapd_set_ap_isolate(struct hostapd_data *hapd, int value)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_ap_isolate\n");
 	if (hapd->driver == NULL || hapd->driver->set_intra_bss == NULL)
 		return 0;
 	return hapd->driver->set_intra_bss(hapd->drv_priv, !value);
@@ -223,6 +232,8 @@ int hostapd_set_bss_params(struct hostapd_data *hapd, int use_protection)
 {
 	int ret = 0;
 	int preamble;
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_ap_bss_params\n");
 #ifdef CONFIG_IEEE80211N
 	u8 buf[60], *ht_capab, *ht_oper, *pos;
 
@@ -281,6 +292,8 @@ int hostapd_set_bss_params(struct hostapd_data *hapd, int use_protection)
 
 int hostapd_vlan_if_add(struct hostapd_data *hapd, const char *ifname)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_vlan_if_add\n");
 	char force_ifname[IFNAMSIZ];
 	u8 if_addr[ETH_ALEN];
 	return hostapd_if_add(hapd, WPA_IF_AP_VLAN, ifname, hapd->own_addr,
@@ -290,6 +303,8 @@ int hostapd_vlan_if_add(struct hostapd_data *hapd, const char *ifname)
 
 int hostapd_vlan_if_remove(struct hostapd_data *hapd, const char *ifname)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_vlan_if_remove\n");
 	return hostapd_if_remove(hapd, WPA_IF_AP_VLAN, ifname);
 }
 
@@ -299,6 +314,7 @@ int hostapd_set_wds_sta(struct hostapd_data *hapd, const u8 *addr, int aid,
 {
 	const char *bridge = NULL;
 
+    printf("lyc_ap_drv_ops.c_hostapd_set_wds_sta\n");
 	if (hapd->driver == NULL || hapd->driver->set_wds_sta == NULL)
 		return 0;
 	if (hapd->conf->wds_bridge[0])
@@ -318,6 +334,7 @@ int hostapd_sta_add(struct hostapd_data *hapd,
 {
 	struct hostapd_sta_add_params params;
 
+    printf("lyc_ap_drv_ops.c_hostapd_sta_add\n");
 	if (hapd->driver == NULL)
 		return 0;
 	if (hapd->driver->sta_add == NULL)
@@ -337,6 +354,8 @@ int hostapd_sta_add(struct hostapd_data *hapd,
 
 int hostapd_set_privacy(struct hostapd_data *hapd, int enabled)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_privacy\n");
 	if (hapd->driver == NULL || hapd->driver->set_privacy == NULL)
 		return 0;
 	return hapd->driver->set_privacy(hapd->drv_priv, enabled);
@@ -346,6 +365,8 @@ int hostapd_set_privacy(struct hostapd_data *hapd, int enabled)
 int hostapd_set_generic_elem(struct hostapd_data *hapd, const u8 *elem,
 			     size_t elem_len)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_generic_elem\n");
 	if (hapd->driver == NULL || hapd->driver->set_generic_elem == NULL)
 		return 0;
 	return hapd->driver->set_generic_elem(hapd->drv_priv, elem, elem_len);
@@ -354,6 +375,8 @@ int hostapd_set_generic_elem(struct hostapd_data *hapd, const u8 *elem,
 
 int hostapd_get_ssid(struct hostapd_data *hapd, u8 *buf, size_t len)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_get_ssid\n");
 	if (hapd->driver == NULL || hapd->driver->hapd_get_ssid == NULL)
 		return 0;
 	return hapd->driver->hapd_get_ssid(hapd->drv_priv, buf, len);
@@ -362,6 +385,8 @@ int hostapd_get_ssid(struct hostapd_data *hapd, u8 *buf, size_t len)
 
 int hostapd_set_ssid(struct hostapd_data *hapd, const u8 *buf, size_t len)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_ssid\n");
 	if (hapd->driver == NULL || hapd->driver->hapd_set_ssid == NULL)
 		return 0;
 	return hapd->driver->hapd_set_ssid(hapd->drv_priv, buf, len);
@@ -373,6 +398,8 @@ int hostapd_if_add(struct hostapd_data *hapd, enum wpa_driver_if_type type,
 		   void **drv_priv, char *force_ifname, u8 *if_addr,
 		   const char *bridge)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_if_add\n");
 	if (hapd->driver == NULL || hapd->driver->if_add == NULL)
 		return -1;
 	return hapd->driver->if_add(hapd->drv_priv, type, ifname, addr,
@@ -384,6 +411,8 @@ int hostapd_if_add(struct hostapd_data *hapd, enum wpa_driver_if_type type,
 int hostapd_if_remove(struct hostapd_data *hapd, enum wpa_driver_if_type type,
 		      const char *ifname)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_if_remove\n");
 	if (hapd->driver == NULL || hapd->driver->if_remove == NULL)
 		return -1;
 	return hapd->driver->if_remove(hapd->drv_priv, type, ifname);
@@ -393,6 +422,8 @@ int hostapd_if_remove(struct hostapd_data *hapd, enum wpa_driver_if_type type,
 int hostapd_set_ieee8021x(struct hostapd_data *hapd,
 			  struct wpa_bss_params *params)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_ieee8021x\n");
 	if (hapd->driver == NULL || hapd->driver->set_ieee8021x == NULL)
 		return 0;
 	return hapd->driver->set_ieee8021x(hapd->drv_priv, params);
@@ -402,6 +433,8 @@ int hostapd_set_ieee8021x(struct hostapd_data *hapd,
 int hostapd_get_seqnum(const char *ifname, struct hostapd_data *hapd,
 		       const u8 *addr, int idx, u8 *seq)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_get_seqnum\n");
 	if (hapd->driver == NULL || hapd->driver->get_seqnum == NULL)
 		return 0;
 	return hapd->driver->get_seqnum(ifname, hapd->drv_priv, addr, idx,
@@ -411,6 +444,8 @@ int hostapd_get_seqnum(const char *ifname, struct hostapd_data *hapd,
 
 int hostapd_flush(struct hostapd_data *hapd)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_flush\n");
 	if (hapd->driver == NULL || hapd->driver->flush == NULL)
 		return 0;
 	return hapd->driver->flush(hapd->drv_priv);
@@ -420,6 +455,8 @@ int hostapd_flush(struct hostapd_data *hapd)
 int hostapd_set_freq(struct hostapd_data *hapd, int mode, int freq,
 		     int channel, int ht_enabled, int sec_channel_offset)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_freq\n");
 	struct hostapd_freq_params data;
 	if (hapd->driver == NULL)
 		return 0;
@@ -436,6 +473,8 @@ int hostapd_set_freq(struct hostapd_data *hapd, int mode, int freq,
 
 int hostapd_set_rts(struct hostapd_data *hapd, int rts)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_rts\n");
 	if (hapd->driver == NULL || hapd->driver->set_rts == NULL)
 		return 0;
 	return hapd->driver->set_rts(hapd->drv_priv, rts);
@@ -444,6 +483,8 @@ int hostapd_set_rts(struct hostapd_data *hapd, int rts)
 
 int hostapd_set_frag(struct hostapd_data *hapd, int frag)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_frag\n");
 	if (hapd->driver == NULL || hapd->driver->set_frag == NULL)
 		return 0;
 	return hapd->driver->set_frag(hapd->drv_priv, frag);
@@ -453,6 +494,8 @@ int hostapd_set_frag(struct hostapd_data *hapd, int frag)
 int hostapd_sta_set_flags(struct hostapd_data *hapd, u8 *addr,
 			  int total_flags, int flags_or, int flags_and)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_sta_set_flags\n");
 	if (hapd->driver == NULL || hapd->driver->sta_set_flags == NULL)
 		return 0;
 	return hapd->driver->sta_set_flags(hapd->drv_priv, addr, total_flags,
@@ -463,6 +506,8 @@ int hostapd_sta_set_flags(struct hostapd_data *hapd, u8 *addr,
 int hostapd_set_rate_sets(struct hostapd_data *hapd, int *supp_rates,
 			  int *basic_rates, int mode)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_rate_sets\n");
 	if (hapd->driver == NULL || hapd->driver->set_rate_sets == NULL)
 		return 0;
 	return hapd->driver->set_rate_sets(hapd->drv_priv, supp_rates,
@@ -472,6 +517,8 @@ int hostapd_set_rate_sets(struct hostapd_data *hapd, int *supp_rates,
 
 int hostapd_set_country(struct hostapd_data *hapd, const char *country)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_country\n");
 	if (hapd->driver == NULL ||
 	    hapd->driver->set_country == NULL)
 		return 0;
@@ -481,6 +528,8 @@ int hostapd_set_country(struct hostapd_data *hapd, const char *country)
 
 int hostapd_set_cts_protect(struct hostapd_data *hapd, int value)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_cts_protect\n");
 	if (hapd->driver == NULL || hapd->driver->set_cts_protect == NULL)
 		return 0;
 	return hapd->driver->set_cts_protect(hapd->drv_priv, value);
@@ -489,6 +538,8 @@ int hostapd_set_cts_protect(struct hostapd_data *hapd, int value)
 
 int hostapd_set_preamble(struct hostapd_data *hapd, int value)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_preamble\n");
 	if (hapd->driver == NULL || hapd->driver->set_preamble == NULL)
 		return 0;
 	return hapd->driver->set_preamble(hapd->drv_priv, value);
@@ -497,6 +548,8 @@ int hostapd_set_preamble(struct hostapd_data *hapd, int value)
 
 int hostapd_set_short_slot_time(struct hostapd_data *hapd, int value)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_short_slot_time\n");
 	if (hapd->driver == NULL || hapd->driver->set_short_slot_time == NULL)
 		return 0;
 	return hapd->driver->set_short_slot_time(hapd->drv_priv, value);
@@ -506,6 +559,8 @@ int hostapd_set_short_slot_time(struct hostapd_data *hapd, int value)
 int hostapd_set_tx_queue_params(struct hostapd_data *hapd, int queue, int aifs,
 				int cw_min, int cw_max, int burst_time)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_tx_queue_params\n");
 	if (hapd->driver == NULL || hapd->driver->set_tx_queue_params == NULL)
 		return 0;
 	return hapd->driver->set_tx_queue_params(hapd->drv_priv, queue, aifs,
@@ -516,6 +571,8 @@ int hostapd_set_tx_queue_params(struct hostapd_data *hapd, int queue, int aifs,
 int hostapd_valid_bss_mask(struct hostapd_data *hapd, const u8 *addr,
 			   const u8 *mask)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_valid_bss_mask\n");
 	if (hapd->driver == NULL || hapd->driver->valid_bss_mask == NULL)
 		return 1;
 	return hapd->driver->valid_bss_mask(hapd->drv_priv, addr, mask);
@@ -526,6 +583,8 @@ struct hostapd_hw_modes *
 hostapd_get_hw_feature_data(struct hostapd_data *hapd, u16 *num_modes,
 			    u16 *flags)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_get_hw_feature_data\n");
 	if (hapd->driver == NULL ||
 	    hapd->driver->get_hw_feature_data == NULL)
 		return NULL;
@@ -536,6 +595,8 @@ hostapd_get_hw_feature_data(struct hostapd_data *hapd, u16 *num_modes,
 
 int hostapd_driver_commit(struct hostapd_data *hapd)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_driver_commit\n");
 	if (hapd->driver == NULL || hapd->driver->commit == NULL)
 		return 0;
 	return hapd->driver->commit(hapd->drv_priv);
@@ -546,6 +607,8 @@ int hostapd_set_ht_params(struct hostapd_data *hapd,
 			  const u8 *ht_capab, size_t ht_capab_len,
 			  const u8 *ht_oper, size_t ht_oper_len)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_set_ht_params\n");
 	if (hapd->driver == NULL || hapd->driver->set_ht_params == NULL ||
 	    ht_capab == NULL || ht_oper == NULL)
 		return 0;
@@ -557,6 +620,8 @@ int hostapd_set_ht_params(struct hostapd_data *hapd,
 
 int hostapd_drv_none(struct hostapd_data *hapd)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_drv_none\n");
 	return hapd->driver && os_strcmp(hapd->driver->name, "none") == 0;
 }
 
@@ -564,6 +629,8 @@ int hostapd_drv_none(struct hostapd_data *hapd)
 int hostapd_driver_scan(struct hostapd_data *hapd,
 			struct wpa_driver_scan_params *params)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_driver_scan\n");
 	if (hapd->driver && hapd->driver->scan2)
 		return hapd->driver->scan2(hapd->drv_priv, params);
 	return -1;
@@ -573,6 +640,8 @@ int hostapd_driver_scan(struct hostapd_data *hapd,
 struct wpa_scan_results * hostapd_driver_get_scan_results(
 	struct hostapd_data *hapd)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_driver_get_scan_results\n");
 	if (hapd->driver && hapd->driver->get_scan_results2)
 		return hapd->driver->get_scan_results2(hapd->drv_priv);
 	return NULL;
@@ -582,6 +651,8 @@ struct wpa_scan_results * hostapd_driver_get_scan_results(
 int hostapd_driver_set_noa(struct hostapd_data *hapd, u8 count, int start,
 			   int duration)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_driver_set_noa\n");
 	if (hapd->driver && hapd->driver->set_noa)
 		return hapd->driver->set_noa(hapd->drv_priv, count, start,
 					     duration);
@@ -595,6 +666,8 @@ int hostapd_drv_set_key(const char *ifname, struct hostapd_data *hapd,
 			const u8 *seq, size_t seq_len,
 			const u8 *key, size_t key_len)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_drv_set_key\n");
 	if (hapd->driver == NULL || hapd->driver->set_key == NULL)
 		return 0;
 	return hapd->driver->set_key(ifname, hapd->drv_priv, alg, addr,
@@ -606,6 +679,8 @@ int hostapd_drv_set_key(const char *ifname, struct hostapd_data *hapd,
 int hostapd_drv_send_mlme(struct hostapd_data *hapd,
 			  const void *msg, size_t len)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_drv_send_mlme\n");
 	if (hapd->driver == NULL || hapd->driver->send_mlme == NULL)
 		return 0;
 	return hapd->driver->send_mlme(hapd->drv_priv, msg, len);
@@ -615,6 +690,8 @@ int hostapd_drv_send_mlme(struct hostapd_data *hapd,
 int hostapd_drv_sta_deauth(struct hostapd_data *hapd,
 			   const u8 *addr, int reason)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_drv_sta_deauth\n");
 	if (hapd->driver == NULL || hapd->driver->sta_deauth == NULL)
 		return 0;
 	return hapd->driver->sta_deauth(hapd->drv_priv, hapd->own_addr, addr,
@@ -625,6 +702,8 @@ int hostapd_drv_sta_deauth(struct hostapd_data *hapd,
 int hostapd_drv_sta_disassoc(struct hostapd_data *hapd,
 			     const u8 *addr, int reason)
 {
+
+    printf("lyc_ap_drv_ops.c_hostapd_drv_sta_disassoc\n");
 	if (hapd->driver == NULL || hapd->driver->sta_disassoc == NULL)
 		return 0;
 	return hapd->driver->sta_disassoc(hapd->drv_priv, hapd->own_addr, addr,

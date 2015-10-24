@@ -146,6 +146,7 @@ static void handle_tx_callback(struct hostap_driver_data *drv, u8 *buf,
 
 static void handle_frame(struct hostap_driver_data *drv, u8 *buf, size_t len)
 {
+    printf("\n\n******\nlyc_driver_hostapd.c_handle_frame\n******\n");
 	struct ieee80211_hdr *hdr;
 	u16 fc, extra_len, type, stype;
 	unsigned char *extra = NULL;
@@ -217,6 +218,7 @@ static void handle_frame(struct hostap_driver_data *drv, u8 *buf, size_t len)
 
 static void handle_read(int sock, void *eloop_ctx, void *sock_ctx)
 {
+    printf("lyc_driver_nl80211.c_handlre_read(frame)\n");
 	struct hostap_driver_data *drv = eloop_ctx;
 	int len;
 	unsigned char buf[3000];

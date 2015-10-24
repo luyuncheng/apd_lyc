@@ -39,6 +39,7 @@ static u8 ieee802_11_erp_info(struct hostapd_data *hapd)
 {
 	u8 erp = 0;
 
+    printf("lyc_beacon.c_ieee802_11_erp_info\n");
 	if (hapd->iface->current_mode == NULL ||
 	    hapd->iface->current_mode->mode != HOSTAPD_MODE_IEEE80211G)
 		return 0;
@@ -71,6 +72,7 @@ static u8 ieee802_11_erp_info(struct hostapd_data *hapd)
 
 static u8 * hostapd_eid_ds_params(struct hostapd_data *hapd, u8 *eid)
 {
+    printf("lyc_beacon.c_hostapd_eid_ds_params\n");
 	*eid++ = WLAN_EID_DS_PARAMS;
 	*eid++ = 1;
 	*eid++ = hapd->iconf->channel;
@@ -80,6 +82,7 @@ static u8 * hostapd_eid_ds_params(struct hostapd_data *hapd, u8 *eid)
 
 static u8 * hostapd_eid_erp_info(struct hostapd_data *hapd, u8 *eid)
 {
+    printf("lyc_beacon.c_hostapd_eid_erp_info\n");
 	if (hapd->iface->current_mode == NULL ||
 	    hapd->iface->current_mode->mode != HOSTAPD_MODE_IEEE80211G)
 		return eid;
@@ -108,7 +111,7 @@ static u8 * hostapd_eid_country_add(u8 *pos, u8 *end, int chan_spacing,
 {
 	if (end - pos < 3)
 		return pos;
-
+    printf("lyc_beacon.c_hostapd_eid_country_add\n");
 	/* first channel number */
 	*pos++ = start->chan;
 	/* number of channels */
@@ -123,6 +126,7 @@ static u8 * hostapd_eid_country_add(u8 *pos, u8 *end, int chan_spacing,
 static u8 * hostapd_eid_country(struct hostapd_data *hapd, u8 *eid,
 				int max_len)
 {
+    printf("lyc_beacon.c_hostapd_eid_country\n");
 	u8 *pos = eid;
 	u8 *end = eid + max_len;
 	int i;
@@ -187,7 +191,7 @@ static u8 * hostapd_eid_wpa(struct hostapd_data *hapd, u8 *eid, size_t len,
 {
 	const u8 *ie;
 	size_t ielen;
-
+    printf("lyc_beacon.c_hostapd_eid_wpa\n");
 	ie = wpa_auth_get_wpa_ie(hapd->wpa_auth, &ielen);
 	if (ie == NULL || ielen > len)
 		return eid;
@@ -196,10 +200,11 @@ static u8 * hostapd_eid_wpa(struct hostapd_data *hapd, u8 *eid, size_t len,
 	return eid + ielen;
 }
 
-
+//处理probe_req
 void handle_probe_req(struct hostapd_data *hapd,
 		      const struct ieee80211_mgmt *mgmt, size_t len)
 {
+    printf("\n\nlyc_beacon.c_handle_probe_req\n\n");
 	struct ieee80211_mgmt *resp;
 	struct ieee802_11_elems elems;
 	char *ssid;
@@ -228,7 +233,7 @@ void handle_probe_req(struct hostapd_data *hapd,
 			   MAC2STR(mgmt->sa));
 		return;
 	}
-
+    printf("lyc_ap_beacon.c_ProbeReq MAC:\n" MACSTR,MAC2STR(mgmt->sa));
 	ssid = NULL;
 	ssid_len = 0;
 
@@ -393,6 +398,7 @@ void handle_probe_req(struct hostapd_data *hapd,
 
 void ieee802_11_set_beacon(struct hostapd_data *hapd)
 {
+    printf("lyc_beacon.c_iee802_11_set_beacon\n");
 	struct ieee80211_mgmt *head;
 	u8 *pos, *tail, *tailpos;
 	u16 capab_info;
